@@ -51,4 +51,16 @@ prompt
 
 server.log
 # Skills directory
+/skills/worklog.md
+.zscripts/
+agent-ctx/
 /skills/
+
+# Sandbox / non-project artifacts
+/examples/
+/mini-services/
+/db/
+/tests/
+/download/
+.zscripts/
+.env

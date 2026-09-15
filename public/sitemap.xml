@@ -12,43 +12,43 @@
     </image:image>
   </url>
   <url>
-    <loc>https://www.moonphaseemoji.com/#moon-phases</loc>
+    <loc>https://www.moonphaseemoji.com/moon-phases</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.moonphaseemoji.com/#forecast</loc>
+    <loc>https://www.moonphaseemoji.com/forecast</loc>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.moonphaseemoji.com/#about</loc>
+    <loc>https://www.moonphaseemoji.com/about</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.moonphaseemoji.com/#faq</loc>
+    <loc>https://www.moonphaseemoji.com/faq</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.moonphaseemoji.com/#contact</loc>
+    <loc>https://www.moonphaseemoji.com/author</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.moonphaseemoji.com/contact</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://www.moonphaseemoji.com/#privacy</loc>
-    <changefreq>yearly</changefreq>
-    <priority>0.4</priority>
-  </url>
-  <url>
-    <loc>https://www.moonphaseemoji.com/#author</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://www.moonphaseemoji.com/#sources</loc>
+    <loc>https://www.moonphaseemoji.com/sources</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://www.moonphaseemoji.com/privacy</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
   </url>
 </urlset>

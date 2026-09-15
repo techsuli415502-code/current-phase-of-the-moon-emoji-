@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { LiveMoonPhase } from "@/components/live-moon-phase";
 import { Starfield } from "@/components/starfield";
 
@@ -65,18 +66,18 @@ export function Hero() {
           className="fade-in-up mt-12 flex flex-col gap-3 sm:flex-row"
           style={{ animationDelay: "0.7s" }}
         >
-          <a
-            href="#moon-phases"
+          <Link
+            href="/moon-phases"
             className="inline-flex items-center justify-center rounded-md bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground transition-transform hover:scale-105"
           >
             Explore all 8 moon phases
-          </a>
-          <a
-            href="#forecast"
+          </Link>
+          <Link
+            href="/forecast"
             className="inline-flex items-center justify-center rounded-md border border-border/60 bg-card/40 px-6 py-3 text-sm font-semibold text-foreground backdrop-blur-sm transition-colors hover:border-primary/50"
           >
             See the 7-day forecast
-          </a>
+          </Link>
         </div>
       </div>
     </section>
