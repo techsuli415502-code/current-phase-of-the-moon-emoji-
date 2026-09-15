@@ -4,6 +4,11 @@ import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
+import { GoogleAnalytics } from "@next/third-parties/google";
+
+// Google Analytics 4 Measurement ID
+// Tracks page views across all routes including client-side navigation.
+const GA_MEASUREMENT_ID = "G-G749C8QG4Z";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -173,6 +178,10 @@ export default function RootLayout({
         </div>
         <Toaster />
       </body>
+      {/* Google Analytics 4 — loads gtag.js and tracks page views on every
+          route change. Placed as a direct child of <html> so the script
+          is injected into <head> with the correct afterInteractive strategy. */}
+      <GoogleAnalytics gaId={GA_MEASUREMENT_ID} />
     </html>
   );
 }
