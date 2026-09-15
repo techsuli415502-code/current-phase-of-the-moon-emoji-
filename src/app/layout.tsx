@@ -1,0 +1,204 @@
+import type { Metadata } from "next";
+import { Geist, Geist_Mono } from "next/font/google";
+import "./globals.css";
+import { Toaster } from "@/components/ui/toaster";
+
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+});
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
+
+const SITE_URL = "https://www.moonphaseemoji.com";
+const PRIMARY_KEYWORD = "current phase of the moon emoji";
+
+export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
+  title: `${PRIMARY_KEYWORD} — Live Moon Phase Emoji Updated Every Minute`,
+  description:
+    "See the current phase of the moon emoji live — updated every minute with real-time illumination, moon age, and a 7-day forecast. Free, accurate, no sign-up.",
+  keywords: [
+    PRIMARY_KEYWORD,
+    "moon phase emoji",
+    "moon emoji today",
+    "live moon phase",
+    "moon phase right now",
+    "tonight's moon emoji",
+    "lunar phase calculator",
+    "moon phase forecast",
+    "new moon emoji",
+    "full moon emoji",
+    "waxing crescent",
+    "waning gibbous",
+  ],
+  authors: [{ name: "Jacob Moses", url: SITE_URL }],
+  creator: "Jacob Moses",
+  publisher: "Moon Phase Emoji",
+  category: "Science & Astronomy",
+  applicationName: "Moon Phase Emoji",
+  alternates: {
+    canonical: SITE_URL,
+  },
+  icons: {
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+    ],
+    shortcut: "/favicon.svg",
+    apple: "/favicon.svg",
+  },
+  manifest: undefined,
+  openGraph: {
+    title: `${PRIMARY_KEYWORD} — Live Moon Phase Emoji`,
+    description:
+      "Real-time moon phase shown as an emoji, updated every minute in your browser. Includes 7-day forecast, 8 phases explained, and a moon phase FAQ.",
+    url: SITE_URL,
+    siteName: "Moon Phase Emoji",
+    type: "website",
+    locale: "en_US",
+    images: [
+      {
+        url: "/favicon.svg",
+        width: 64,
+        height: 64,
+        alt: "Moon phase emoji favicon",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${PRIMARY_KEYWORD} — Live Moon Phase Emoji`,
+    description:
+      "See tonight's moon phase as an emoji — live, accurate, no refresh needed.",
+    creator: "@moonphaseemoji",
+    images: ["/favicon.svg"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    nocache: false,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
+  verification: {
+    google: "google-site-verification-code",
+  },
+};
+
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": `${SITE_URL}/#website`,
+    url: SITE_URL,
+    name: "Moon Phase Emoji",
+    description:
+      "Live moon phase emoji updated every minute. See the current phase of the moon as an emoji with illumination percentage and 7-day forecast.",
+    inLanguage: "en-US",
+    publisher: { "@id": `${SITE_URL}/#organization` },
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "@id": `${SITE_URL}/#organization`,
+    name: "Moon Phase Emoji",
+    url: SITE_URL,
+    logo: `${SITE_URL}/favicon.svg`,
+    description:
+      "Publisher of the live moon phase emoji tool, lunar phase guides, and 7-day moon forecasts.",
+    founder: { "@id": `${SITE_URL}/#person` },
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "@id": `${SITE_URL}/#person`,
+    name: "Jacob Moses",
+    jobTitle: "Content Specialist",
+    url: `${SITE_URL}/#author`,
+    description:
+      "Jacob Moses is a content specialist and the founder of Moon Phase Emoji. He writes about astronomy, time, and the rituals that connect people to the night sky.",
+    worksFor: { "@id": `${SITE_URL}/#organization` },
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": `${SITE_URL}/#webpage`,
+    url: SITE_URL,
+    name: `${PRIMARY_KEYWORD} — Live Moon Phase Emoji`,
+    description:
+      "See the current phase of the moon emoji live, updated every minute. Free lunar phase calculator with illumination percentage, moon age, and a 7-day forecast.",
+    isPartOf: { "@id": `${SITE_URL}/#website` },
+    about: {
+      "@type": "Thing",
+      name: "Lunar phase",
+      sameAs: "https://en.wikipedia.org/wiki/Lunar_phase",
+    },
+    author: { "@id": `${SITE_URL}/#person` },
+    publisher: { "@id": `${SITE_URL}/#organization` },
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "@id": `${SITE_URL}/#faqpage`,
+    mainEntity: [
+      {
+        "@type": "Question",
+        name: "What is the current phase of the moon emoji?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "The emoji shown at the top of the page is computed live for the precise moment you loaded it. The Moon cycles through eight canonical phases — New Moon, Waxing Crescent, First Quarter, Waxing Gibbous, Full Moon, Waning Gibbous, Last Quarter, and Waning Crescent — and the one displayed corresponds to where the Moon is right now in its 29.53-day cycle.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "How often does the moon phase change?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "The Moon's phase changes continuously — every minute it is fractionally more or less illuminated. In practice, the visible emoji changes roughly every 3 to 4 days. The full cycle from one New Moon to the next takes 29.53 days on average.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Is the moon phase the same everywhere on Earth?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Yes. The Moon's phase depends only on the Sun-Earth-Moon geometry, not on your location. What differs by location is the local time the Moon rises and sets. The emoji shown on this page is correct no matter where you are on Earth.",
+        },
+      },
+    ],
+  },
+];
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        {jsonLd.map((data, i) => (
+          <script
+            key={i}
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+          />
+        ))}
+      </head>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground`}
+      >
+        {children}
+        <Toaster />
+      </body>
+    </html>
+  );
+}

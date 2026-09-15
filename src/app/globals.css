@@ -1,0 +1,239 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+:root {
+  --radius: 0.625rem;
+  /* Deep night sky theme — chosen to evoke moonlit darkness */
+  --background: oklch(0.10 0.018 260);
+  --foreground: oklch(0.97 0.005 80);
+  --card: oklch(0.15 0.02 260);
+  --card-foreground: oklch(0.97 0.005 80);
+  --popover: oklch(0.15 0.02 260);
+  --popover-foreground: oklch(0.97 0.005 80);
+  --primary: oklch(0.85 0.13 80);
+  --primary-foreground: oklch(0.15 0.02 260);
+  --secondary: oklch(0.20 0.02 260);
+  --secondary-foreground: oklch(0.97 0.005 80);
+  --muted: oklch(0.22 0.015 260);
+  --muted-foreground: oklch(0.72 0.01 80);
+  --accent: oklch(0.65 0.10 80);
+  --accent-foreground: oklch(0.10 0.018 260);
+  --destructive: oklch(0.65 0.22 25);
+  --border: oklch(0.25 0.015 260 / 60%);
+  --input: oklch(0.20 0.015 260);
+  --ring: oklch(0.75 0.12 80);
+  --chart-1: oklch(0.85 0.13 80);
+  --chart-2: oklch(0.70 0.10 200);
+  --chart-3: oklch(0.60 0.15 280);
+  --chart-4: oklch(0.78 0.18 50);
+  --chart-5: oklch(0.65 0.20 320);
+  --sidebar: oklch(0.13 0.018 260);
+  --sidebar-foreground: oklch(0.97 0.005 80);
+  --sidebar-primary: oklch(0.85 0.13 80);
+  --sidebar-primary-foreground: oklch(0.10 0.018 260);
+  --sidebar-accent: oklch(0.20 0.02 260);
+  --sidebar-accent-foreground: oklch(0.97 0.005 80);
+  --sidebar-border: oklch(0.25 0.015 260 / 60%);
+  --sidebar-ring: oklch(0.75 0.12 80);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+  }
+  body {
+    @apply bg-background text-foreground;
+    background-image:
+      radial-gradient(ellipse at 20% 10%, rgba(245, 230, 200, 0.06), transparent 50%),
+      radial-gradient(ellipse at 80% 80%, rgba(180, 180, 220, 0.05), transparent 50%);
+    background-attachment: fixed;
+  }
+}
+
+/* ====== Starfield ====== */
+.starfield {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+.star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: white;
+  border-radius: 50%;
+  opacity: 0.6;
+  animation: twinkle var(--twinkle-duration, 4s) ease-in-out infinite;
+}
+@keyframes twinkle {
+  0%, 100% { opacity: 0.2; transform: scale(0.8); }
+  50% { opacity: 0.9; transform: scale(1.2); }
+}
+
+/* ====== Lighting text effect (hero keyword) ====== */
+.lighting-text {
+  background: linear-gradient(
+    90deg,
+    #f5e6c8 0%,
+    #fff8dc 25%,
+    #ffd97a 50%,
+    #fff8dc 75%,
+    #f5e6c8 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 4s linear infinite;
+  text-shadow: 0 0 30px rgba(245, 230, 200, 0.3);
+  position: relative;
+}
+@keyframes shimmer {
+  0% { background-position: 0% center; }
+  100% { background-position: 200% center; }
+}
+
+.lighting-text::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 217, 122, 0.35) 50%,
+    transparent 100%
+  );
+  background-size: 50% 100%;
+  background-repeat: no-repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+  mix-blend-mode: screen;
+  animation: sweep 3s ease-in-out infinite;
+  pointer-events: none;
+  /* Hide from accessibility tree */
+  -webkit-user-select: none;
+  user-select: none;
+}
+@keyframes sweep {
+  0% { background-position: -100% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* ====== Moon glow pulse ====== */
+.moon-glow {
+  filter: drop-shadow(0 0 30px rgba(245, 230, 200, 0.45))
+          drop-shadow(0 0 60px rgba(255, 217, 122, 0.25));
+  animation: moon-pulse 6s ease-in-out infinite;
+}
+@keyframes moon-pulse {
+  0%, 100% {
+    filter: drop-shadow(0 0 30px rgba(245, 230, 200, 0.45))
+            drop-shadow(0 0 60px rgba(255, 217, 122, 0.25));
+  }
+  50% {
+    filter: drop-shadow(0 0 50px rgba(245, 230, 200, 0.65))
+            drop-shadow(0 0 100px rgba(255, 217, 122, 0.4));
+  }
+}
+
+/* ====== Floating moon ====== */
+.float-moon {
+  animation: float-moon 8s ease-in-out infinite;
+}
+@keyframes float-moon {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-12px) rotate(2deg); }
+}
+
+/* ====== Slow rotation for halo rings ====== */
+.halo-ring {
+  animation: halo-spin 60s linear infinite;
+}
+@keyframes halo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.halo-ring-reverse {
+  animation: halo-spin 90s linear infinite reverse;
+}
+
+/* ====== Fade in on load ====== */
+.fade-in-up {
+  animation: fadeInUp 1s ease-out forwards;
+  opacity: 0;
+}
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ====== Custom scrollbar ====== */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: oklch(0.13 0.018 260); }
+::-webkit-scrollbar-thumb {
+  background: oklch(0.35 0.02 260);
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover { background: oklch(0.45 0.05 80); }
+
+/* ====== Card hover glow ====== */
+.phase-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+.phase-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(245, 230, 200, 0.5);
+  box-shadow: 0 10px 40px -10px rgba(245, 230, 200, 0.25);
+}
