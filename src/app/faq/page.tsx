@@ -91,8 +91,26 @@ export default function FaqPage() {
           </div>
 
           <Accordion type="single" collapsible className="w-full">
-            {FAQS.map((faq, idx) => (
+            {FAQS.slice(0, 4).map((faq, idx) => (
               <AccordionItem key={idx} value={`item-${idx}`}>
+                <AccordionTrigger className="text-left text-base font-semibold text-foreground">
+                  {faq.q}
+                </AccordionTrigger>
+                <AccordionContent className="text-sm leading-relaxed text-muted-foreground">
+                  {faq.a}
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+
+          {/* Inline ad — 300×250 rectangle mid-FAQ (natural break between Q4 and Q5) */}
+          <div className="my-8 flex justify-center">
+            <AdBanner format="rectangle" />
+          </div>
+
+          <Accordion type="single" collapsible className="w-full">
+            {FAQS.slice(4).map((faq, idx) => (
+              <AccordionItem key={idx + 4} value={`item-${idx + 4}`}>
                 <AccordionTrigger className="text-left text-base font-semibold text-foreground">
                   {faq.q}
                 </AccordionTrigger>

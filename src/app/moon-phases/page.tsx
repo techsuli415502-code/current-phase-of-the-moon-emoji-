@@ -123,24 +123,29 @@ export default function MoonPhasesPage() {
                 external API call required.
               </p>
             </div>
-
-            <div className="mt-8 rounded-xl border border-border/60 bg-card/40 p-6">
-              <h3 className="text-lg font-bold text-foreground">
-                Want the live emoji for right now?
-              </h3>
-              <p className="mt-2 text-sm text-muted-foreground">
-                Head back to the home page to see today&apos;s moon phase
-                rendered live as a single emoji, updated every minute.
-              </p>
-              <Link
-                href="/"
-                className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-primary hover:underline"
-              >
-                See the live moon phase
-                <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
-              </Link>
-            </div>
           </article>
+
+          {/* Inline ad — 300×250 rectangle at the end of the long-form content */}
+          <div className="my-12 flex justify-center">
+            <AdBanner format="rectangle" />
+          </div>
+
+          <div className="mt-8 rounded-xl border border-border/60 bg-card/40 p-6">
+            <h3 className="text-lg font-bold text-foreground">
+              Want the live emoji for right now?
+            </h3>
+            <p className="mt-2 text-sm text-muted-foreground">
+              Head back to the home page to see today&apos;s moon phase
+              rendered live as a single emoji, updated every minute.
+            </p>
+            <Link
+              href="/"
+              className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-primary hover:underline"
+            >
+              See the live moon phase
+              <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
+            </Link>
+          </div>
 
           {/* Inline ad — 728×90 leaderboard at the end of the long-form content */}
           <div className="my-12 flex justify-center">

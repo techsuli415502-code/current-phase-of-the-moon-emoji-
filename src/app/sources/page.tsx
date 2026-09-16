@@ -109,6 +109,11 @@ export default function SourcesPage() {
             transparency and reader reference.
           </p>
 
+          {/* Inline ad — 300×250 rectangle between sources list and disclaimer */}
+          <div className="my-8 flex justify-center">
+            <AdBanner format="rectangle" />
+          </div>
+
           {/* Inline ad — 300×250 rectangle below the sources list */}
           <div className="my-12 flex justify-center">
             <AdBanner format="rectangle" />

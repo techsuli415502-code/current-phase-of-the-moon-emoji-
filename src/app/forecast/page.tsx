@@ -86,6 +86,11 @@ export default function ForecastPage() {
             </div>
           </div>
 
+          {/* Inline ad — 300×250 rectangle at the end of the explainer content */}
+          <div className="my-12 flex justify-center">
+            <AdBanner format="rectangle" />
+          </div>
+
           <AuthorByline />
         </div>
       </section>

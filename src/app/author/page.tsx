@@ -174,6 +174,11 @@ export default function AuthorPage() {
             </p>
           </div>
 
+          {/* Inline ad — 300×250 rectangle between "What I write about" and "Editorial standards" */}
+          <div className="my-12 flex justify-center">
+            <AdBanner format="rectangle" />
+          </div>
+
           {/* Editorial standards */}
           <div className="mt-10">
             <h2 className="text-2xl font-bold text-foreground">

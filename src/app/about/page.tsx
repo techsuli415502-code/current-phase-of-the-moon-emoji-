@@ -125,6 +125,11 @@ export default function AboutPage() {
               </div>
             </article>
 
+            {/* Inline ad — 300×250 rectangle between the two long-form articles */}
+            <div className="my-4 flex justify-center lg:col-span-2">
+              <AdBanner format="rectangle" />
+            </div>
+
             <article>
               <h2 className="text-2xl font-bold text-foreground">
                 How accurate is the calculation?

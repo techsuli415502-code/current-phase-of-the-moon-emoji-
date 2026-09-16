@@ -67,6 +67,11 @@ export default function ContactPage() {
               </a>
             </p>
           </div>
+
+          {/* Inline ad — 300×250 rectangle at the end of the contact page */}
+          <div className="mt-12 flex justify-center">
+            <AdBanner format="rectangle" />
+          </div>
         </div>
       </section>
     </>

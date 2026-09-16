@@ -11,13 +11,13 @@ interface AdConfig {
 }
 
 const AD_CONFIGS: Record<AdFormat, AdConfig> = {
-  // 300×250 medium rectangle — inline placement in content
+  // 300×250 medium rectangle — fits mobile (375px) and desktop
   rectangle: {
     key: "23e98aeeab23e7beeb1305832f744d21",
     height: 250,
     width: 300,
   },
-  // 728×90 leaderboard — wider inline placement (desktop)
+  // 728×90 leaderboard — desktop only (would overflow mobile)
   leaderboard: {
     key: "eb1282ffffa9c28d2f738f91511fd291",
     height: 90,
@@ -27,24 +27,23 @@ const AD_CONFIGS: Record<AdFormat, AdConfig> = {
 
 interface AdBannerProps {
   format: AdFormat;
-  /**
-   * Optional label shown above the ad slot. Defaults to "Advertisement".
-   * Pass `null` to hide the label entirely.
-   */
+  /** Label shown above the ad slot. Pass null to hide. */
   label?: string | null;
-  /**
-   * Extra classes for the outer wrapper (e.g. margin/alignment).
-   */
+  /** Extra classes for the outer wrapper. */
   className?: string;
 }
 
 /**
- * Reusable ad banner. Each ad is loaded inside its own sandboxed iframe
- * via `srcDoc` so that multiple ad slots on the same page don't clash
- * over the `atOptions` global variable the ad network uses.
+ * Reusable ad banner — fully responsive, no layout shift.
  *
- * The iframe gets a clean white background so the ad creative is always
- * visible regardless of the site's dark theme.
+ * Design decisions:
+ * - Rectangle (300×250): visible on ALL screen sizes (fits mobile 375px)
+ * - Leaderboard (728×90): desktop only (hidden below md breakpoint)
+ * - Outer wrapper has fixed height = ad height + label height → no CLS
+ * - Outer wrapper has overflow:hidden + max-width:100% → no horizontal scroll
+ * - Iframe runs inside its own srcDoc document → multiple slots on the same
+ *   page don't clash over the ad network's `atOptions` global
+ * - Iframe has white background → ad creative always visible on dark theme
  */
 export function AdBanner({
   format,
@@ -52,22 +51,25 @@ export function AdBanner({
   className = "",
 }: AdBannerProps) {
   const config = AD_CONFIGS[format];
-  // Stable unique id for this slot
   const uid = useId().replace(/[:]/g, "");
   const containerId = `ad-${format}-${uid}`;
 
-  // Build the iframe document — this is what the ad network expects
-  // to find inside its host page, but isolated per slot.
+  // Leaderboard is hidden on mobile/tablet (< 768px) to prevent overflow
+  const isLeaderboard = format === "leaderboard";
+  const wrapperDisplay = isLeaderboard ? "hidden md:flex" : "flex";
+
+  // Total height = label (~16px) + gap (4px) + ad height + small breathing room
+  const reservedHeight = config.height + 24;
+
+  // Iframe document — ad network expects this exact structure
   const iframeDoc = `<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
-  html, body { margin: 0; padding: 0; background: #ffffff; }
-  body { display: flex; align-items: center; justify-content: center;
-         min-height: ${config.height}px; min-width: ${config.width}px;
-         overflow: hidden; }
+  html, body { margin: 0; padding: 0; background: #ffffff; width: 100%; height: 100%; overflow: hidden; }
+  body { display: flex; align-items: center; justify-content: center; }
 </style>
 </head>
 <body>
@@ -86,36 +88,54 @@ atOptions = {
 
   return (
     <div
-      className={`flex flex-col items-center ${className}`}
+      className={`${wrapperDisplay} flex-col items-center ${className}`}
       data-ad-slot={format}
+      style={{
+        // Reserve height to prevent CLS — ad container occupies this much
+        // space even before the iframe loads
+        minHeight: reservedHeight,
+        width: "100%",
+      }}
     >
       {label !== null && (
-        <span className="mb-1 text-[10px] uppercase tracking-wider text-muted-foreground/60">
+        <span
+          className="mb-1 text-[10px] uppercase tracking-wider text-muted-foreground/60"
+          style={{ height: 16 }}
+        >
           {label}
         </span>
       )}
-      <iframe
-        id={containerId}
-        title="Advertisement"
-        // srcDoc isolates each ad in its own document so multiple ad
-        // slots can coexist on the same page.
-        srcDoc={iframeDoc}
-        width={config.width}
-        height={config.height}
-        // White background so ad creatives are always visible
+      {/* Outer container: responsive, never overflows viewport */}
+      <div
+        className="relative mx-auto overflow-hidden rounded-md"
         style={{
-          minWidth: config.width,
-          minHeight: config.height,
-          maxWidth: "100%",
+          width: "100%",
+          maxWidth: config.width,
+          height: config.height,
           background: "#ffffff",
           border: "1px solid rgba(245, 230, 200, 0.25)",
-          borderRadius: "8px",
         }}
-        loading="lazy"
-        // Allow the ad network's scripts to run inside the iframe
-        sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox allow-forms"
-        referrerPolicy="no-referrer-when-downgrade"
-      />
+      >
+        <iframe
+          id={containerId}
+          title="Advertisement"
+          srcDoc={iframeDoc}
+          // Iframe keeps native ad dimensions; centered inside container
+          style={{
+            width: config.width,
+            height: config.height,
+            position: "absolute",
+            left: "50%",
+            top: 0,
+            transform: "translateX(-50%)",
+            border: "none",
+            background: "#ffffff",
+          }}
+          loading="lazy"
+          sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox allow-forms"
+          referrerPolicy="no-referrer-when-downgrade"
+        />
+      </div>
     </div>
   );
 }

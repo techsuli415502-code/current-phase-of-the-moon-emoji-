@@ -6,7 +6,6 @@ import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { AnchorAd } from "@/components/anchor-ad";
-import { SidebarAnchorAd } from "@/components/sidebar-anchor-ad";
 
 // Google Analytics 4 Measurement ID
 // Tracks page views across all routes including client-side navigation.
@@ -210,10 +209,8 @@ export default function RootLayout({
           <Footer />
         </div>
         <Toaster />
-        {/* Sticky bottom anchor ad (728×90, desktop-only, dismissible) */}
+        {/* Sticky bottom anchor ad (728×90, desktop ≥768px only, dismissible) */}
         <AnchorAd />
-        {/* Sticky right sidebar anchor ad (160×600 skyscraper, xl+ desktop only) */}
-        <SidebarAnchorAd />
       </body>
       {/* Google Analytics 4 — loads gtag.js and tracks page views on every
           route change. Placed as a direct child of <html> so the script

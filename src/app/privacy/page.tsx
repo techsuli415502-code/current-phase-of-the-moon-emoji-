@@ -130,7 +130,14 @@ export default function PrivacyPage() {
                 <li>Comply with applicable legal obligations.</li>
               </ul>
             </Clause>
+          </div>
 
+          {/* Inline ad — 300×250 rectangle between Clause 5 and Clause 6 */}
+          <div className="my-10 flex justify-center">
+            <AdBanner format="rectangle" />
+          </div>
+
+          <div className="space-y-8 text-sm leading-relaxed text-muted-foreground">
             <Clause title="6. Children's privacy">
               <p>
                 Moon Phase Emoji is suitable for general audiences and does

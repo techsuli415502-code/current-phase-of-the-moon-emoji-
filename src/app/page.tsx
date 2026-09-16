@@ -101,6 +101,11 @@ export default function Home() {
             })}
           </div>
 
+          {/* Inline ad — 300×250 rectangle between featured links and phases grid */}
+          <div className="my-12 flex justify-center">
+            <AdBanner format="rectangle" />
+          </div>
+
           {/* Preview: 8 phases at a glance */}
           <div className="mt-16 rounded-2xl border border-border/60 bg-card/40 p-6 backdrop-blur-sm sm:p-10">
             <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
