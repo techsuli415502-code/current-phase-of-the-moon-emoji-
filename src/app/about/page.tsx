@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { PageHeader } from "@/components/page-header";
 import { AuthorByline } from "@/components/author-byline";
+import { AdBanner } from "@/components/ad-banner";
 import { Sparkles, Clock, Globe2, Code2 } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -86,6 +87,11 @@ export default function AboutPage() {
                 </div>
               );
             })}
+          </div>
+
+          {/* Inline ad — 300×250 rectangle between feature cards and long-form content */}
+          <div className="my-12 flex justify-center">
+            <AdBanner format="rectangle" />
           </div>
 
           <div className="mt-16 grid gap-12 lg:grid-cols-2">

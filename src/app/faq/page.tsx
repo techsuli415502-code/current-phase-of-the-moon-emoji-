@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { PageHeader } from "@/components/page-header";
 import { AuthorByline } from "@/components/author-byline";
+import { AdBanner } from "@/components/ad-banner";
 import {
   Accordion,
   AccordionContent,
@@ -84,6 +85,11 @@ export default function FaqPage() {
 
       <section className="px-4 py-16 sm:px-6">
         <div className="mx-auto max-w-3xl">
+          {/* Inline ad — 728×90 leaderboard above the FAQ list */}
+          <div className="mb-12 flex justify-center">
+            <AdBanner format="leaderboard" />
+          </div>
+
           <Accordion type="single" collapsible className="w-full">
             {FAQS.map((faq, idx) => (
               <AccordionItem key={idx} value={`item-${idx}`}>

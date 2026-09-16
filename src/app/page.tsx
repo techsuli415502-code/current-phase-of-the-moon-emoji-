@@ -1,4 +1,5 @@
 import { Hero } from "@/components/sections/hero";
+import { AdBanner } from "@/components/ad-banner";
 import Link from "next/link";
 import { ALL_MOON_PHASES } from "@/lib/moon-phase";
 import { ArrowRight, CalendarDays, HelpCircle, Mail, BookOpen } from "lucide-react";
@@ -47,6 +48,11 @@ export default function Home() {
   return (
     <>
       <Hero />
+
+      {/* Inline ad — 728×90 leaderboard between hero and content */}
+      <div className="px-4 py-6">
+        <AdBanner format="leaderboard" className="mx-auto max-w-3xl" />
+      </div>
 
       {/* Featured section previews */}
       <section className="px-4 py-20 sm:px-6">

@@ -35,18 +35,6 @@ const SOURCES = [
     description:
       "A long-running, accessible explainer from Space.com that breaks down the eight lunar phases in plain English with illustrations. Useful for readers who want a visual, less technical introduction to the synodic cycle.",
   },
-  {
-    name: "timeanddate.com — Moon Phases",
-    url: "https://www.timeanddate.com/moon/phases/",
-    description:
-      "A long-standing, authoritative reference for moonrise, moonset, and exact phase times for any location on Earth. We cross-check our illumination percentages against the data published here on a regular schedule.",
-  },
-  {
-    name: "Wikipedia — Lunar Phase",
-    url: "https://en.wikipedia.org/wiki/Lunar_phase",
-    description:
-      "The encyclopaedic overview of the lunar cycle, including the underlying geometry, the eight canonical phases, and the formulas used to calculate the Moon's phase at any given moment in time.",
-  },
 ];
 
 const jsonLd = {

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ExternalLink } from "lucide-react";
 
 const FOOTER_LINKS = [
   {
@@ -21,6 +22,21 @@ const FOOTER_LINKS = [
   {
     title: "Legal",
     links: [{ href: "/privacy", label: "Privacy policy" }],
+  },
+];
+
+const FOOTER_SOURCES = [
+  {
+    name: "Moon Phase Emoji",
+    url: "https://moonphaseemoji.com/",
+  },
+  {
+    name: "NASA — Moon Phases",
+    url: "https://science.nasa.gov/moon/moon-phases/",
+  },
+  {
+    name: "Space.com — Moon Phases",
+    url: "https://www.space.com/18880-moon-phases.html",
   },
 ];
 
@@ -71,7 +87,32 @@ export function Footer() {
           ))}
         </div>
 
-        <div className="mt-10 flex flex-col gap-4 border-t border-border/40 pt-6 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
+        {/* Sources row */}
+        <div className="mt-10 border-t border-border/40 pt-6">
+          <h2 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+            Sources &amp; references
+          </h2>
+          <ul className="mt-3 flex flex-wrap gap-x-5 gap-y-2">
+            {FOOTER_SOURCES.map((source) => (
+              <li key={source.url}>
+                <a
+                  href={source.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group inline-flex items-center gap-1 text-xs text-muted-foreground transition-colors hover:text-primary"
+                >
+                  {source.name}
+                  <ExternalLink
+                    className="h-3 w-3 opacity-50 transition-opacity group-hover:opacity-100"
+                    aria-hidden="true"
+                  />
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="mt-8 flex flex-col gap-4 border-t border-border/40 pt-6 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
           <p>
             © {new Date().getFullYear()} Moon Phase Emoji. All rights
             reserved.

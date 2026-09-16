@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { ALL_MOON_PHASES } from "@/lib/moon-phase";
 import { PageHeader } from "@/components/page-header";
 import { AuthorByline } from "@/components/author-byline";
+import { AdBanner } from "@/components/ad-banner";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
@@ -78,6 +79,11 @@ export default function MoonPhasesPage() {
                 </p>
               </article>
             ))}
+          </div>
+
+          {/* Inline ad — 300×250 rectangle between phase grid and long-form content */}
+          <div className="my-12 flex justify-center">
+            <AdBanner format="rectangle" />
           </div>
 
           {/* Long-form SEO content */}
