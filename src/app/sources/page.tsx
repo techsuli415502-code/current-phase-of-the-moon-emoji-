@@ -19,9 +19,21 @@ export const metadata: Metadata = {
 const SOURCES = [
   {
     name: "Moon Phase Emoji",
-    url: "https://www.moonphaseemoji.com/",
+    url: "https://moonphaseemoji.com/",
     description:
       "Our companion site covering moon phase emoji in depth — including full emoji reference tables, copy-paste utilities, and historical moon phase dates for any day in the modern era.",
+  },
+  {
+    name: "NASA Science — Moon Phases",
+    url: "https://science.nasa.gov/moon/moon-phases/",
+    description:
+      "The official NASA Solar System Exploration reference on lunar phases, explaining the underlying Sun–Earth–Moon geometry, the eight canonical phases, and why the Moon's appearance changes throughout its 29.53-day cycle. Used as a primary astronomical reference for this site.",
+  },
+  {
+    name: "Space.com — Moon Phases Explained",
+    url: "https://www.space.com/18880-moon-phases.html",
+    description:
+      "A long-running, accessible explainer from Space.com that breaks down the eight lunar phases in plain English with illustrations. Useful for readers who want a visual, less technical introduction to the synodic cycle.",
   },
   {
     name: "timeanddate.com — Moon Phases",
