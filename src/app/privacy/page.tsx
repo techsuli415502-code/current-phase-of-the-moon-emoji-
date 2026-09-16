@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { PageHeader } from "@/components/page-header";
+import { AdBanner } from "@/components/ad-banner";
 import { AUTHOR_EMAIL } from "@/app/layout";
 
 export const metadata: Metadata = {
@@ -41,6 +42,11 @@ export default function PrivacyPage() {
 
       <section className="px-4 py-16 sm:px-6">
         <div className="mx-auto max-w-3xl">
+          {/* Inline ad — 728×90 leaderboard above the policy text */}
+          <div className="mb-12 flex justify-center">
+            <AdBanner format="leaderboard" />
+          </div>
+
           <div className="space-y-8 text-sm leading-relaxed text-muted-foreground">
             <Clause title="1. Overview">
               <p>
@@ -179,6 +185,11 @@ export default function PrivacyPage() {
                 .
               </p>
             </Clause>
+          </div>
+
+          {/* Inline ad — 300×250 rectangle below the policy */}
+          <div className="mt-12 flex justify-center">
+            <AdBanner format="rectangle" />
           </div>
         </div>
       </section>

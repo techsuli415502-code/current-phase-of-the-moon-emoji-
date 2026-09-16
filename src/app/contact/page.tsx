@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { PageHeader } from "@/components/page-header";
 import { ContactSection } from "@/components/sections/contact";
+import { AdBanner } from "@/components/ad-banner";
 import { AUTHOR_EMAIL } from "@/app/layout";
 
 export const metadata: Metadata = {
@@ -43,7 +44,17 @@ export default function ContactPage() {
 
       <section className="px-4 py-16 sm:px-6">
         <div className="mx-auto max-w-5xl">
+          {/* Inline ad — 728×90 leaderboard above the contact form */}
+          <div className="mb-12 flex justify-center">
+            <AdBanner format="leaderboard" />
+          </div>
+
           <ContactSection />
+
+          {/* Inline ad — 300×250 rectangle below the contact section */}
+          <div className="mt-12 flex justify-center">
+            <AdBanner format="rectangle" />
+          </div>
 
           <div className="mt-12 rounded-xl border border-border/60 bg-card/40 p-6 text-center">
             <p className="text-sm text-muted-foreground">

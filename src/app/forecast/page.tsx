@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { PageHeader } from "@/components/page-header";
 import { AuthorByline } from "@/components/author-byline";
+import { AdBanner } from "@/components/ad-banner";
 import { ForecastSection } from "@/components/sections/forecast";
 
 export const metadata: Metadata = {
@@ -46,7 +47,17 @@ export default function ForecastPage() {
 
       <section className="px-4 py-16 sm:px-6">
         <div className="mx-auto max-w-7xl">
+          {/* Inline ad — 728×90 leaderboard above the forecast grid */}
+          <div className="mb-12 flex justify-center">
+            <AdBanner format="leaderboard" />
+          </div>
+
           <ForecastSection />
+
+          {/* Inline ad — 300×250 rectangle between forecast and explainer */}
+          <div className="my-12 flex justify-center">
+            <AdBanner format="rectangle" />
+          </div>
 
           <div className="mt-12 max-w-3xl mx-auto">
             <h2 className="text-2xl font-bold text-foreground">

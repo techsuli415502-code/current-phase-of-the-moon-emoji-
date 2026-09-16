@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { PageHeader } from "@/components/page-header";
 import { AuthorByline } from "@/components/author-byline";
+import { AdBanner } from "@/components/ad-banner";
 import { ExternalLink } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -64,6 +65,11 @@ export default function SourcesPage() {
 
       <section className="px-4 py-16 sm:px-6">
         <div className="mx-auto max-w-4xl">
+          {/* Inline ad — 728×90 leaderboard above the sources list */}
+          <div className="mb-12 flex justify-center">
+            <AdBanner format="leaderboard" />
+          </div>
+
           <ol className="space-y-5">
             {SOURCES.map((source, idx) => (
               <li
@@ -102,6 +108,11 @@ export default function SourcesPage() {
             the publishers of these sources; they are listed here purely for
             transparency and reader reference.
           </p>
+
+          {/* Inline ad — 300×250 rectangle below the sources list */}
+          <div className="my-12 flex justify-center">
+            <AdBanner format="rectangle" />
+          </div>
 
           <AuthorByline />
         </div>

@@ -144,6 +144,11 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Inline ad — 300×250 rectangle at the end of the home page */}
+      <div className="px-4 py-8">
+        <AdBanner format="rectangle" className="mx-auto" />
+      </div>
     </>
   );
 }

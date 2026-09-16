@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { PageHeader } from "@/components/page-header";
+import { AdBanner } from "@/components/ad-banner";
 import { AUTHOR_EMAIL } from "@/app/layout";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
@@ -151,6 +152,11 @@ export default function AuthorPage() {
             </div>
           </div>
 
+          {/* Inline ad — 300×250 rectangle after the bio card */}
+          <div className="my-12 flex justify-center">
+            <AdBanner format="rectangle" />
+          </div>
+
           {/* What I write about */}
           <div className="mt-12">
             <h2 className="text-2xl font-bold text-foreground">
@@ -202,6 +208,11 @@ export default function AuthorPage() {
               Go to the contact page
               <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
             </Link>
+          </div>
+
+          {/* Inline ad — 728×90 leaderboard at the end of the author page */}
+          <div className="my-12 flex justify-center">
+            <AdBanner format="leaderboard" />
           </div>
         </div>
       </section>

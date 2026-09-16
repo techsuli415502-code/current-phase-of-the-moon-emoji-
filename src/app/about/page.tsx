@@ -156,6 +156,11 @@ export default function AboutPage() {
             </article>
           </div>
 
+          {/* Inline ad — 728×90 leaderboard at the end of the long-form content */}
+          <div className="my-12 flex justify-center">
+            <AdBanner format="leaderboard" />
+          </div>
+
           <AuthorByline />
         </div>
       </section>

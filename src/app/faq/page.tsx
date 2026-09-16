@@ -103,6 +103,11 @@ export default function FaqPage() {
             ))}
           </Accordion>
 
+          {/* Inline ad — 300×250 rectangle below the FAQ, before author byline */}
+          <div className="my-12 flex justify-center">
+            <AdBanner format="rectangle" />
+          </div>
+
           <AuthorByline />
         </div>
       </section>
