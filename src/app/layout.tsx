@@ -6,6 +6,7 @@ import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { AnchorAd } from "@/components/anchor-ad";
+import { SidebarAnchorAd } from "@/components/sidebar-anchor-ad";
 
 // Google Analytics 4 Measurement ID
 // Tracks page views across all routes including client-side navigation.
@@ -56,10 +57,26 @@ export const metadata: Metadata = {
     canonical: SITE_URL,
   },
   icons: {
-    icon: [{ url: "/favicon.svg", type: "image/svg+xml" }],
-    shortcut: "/favicon.svg",
-    apple: "/favicon.svg",
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/favicon-32.png", type: "image/png", sizes: "32x32" },
+      { url: "/favicon-16.png", type: "image/png", sizes: "16x16" },
+    ],
+    shortcut: ["/favicon.svg", "/favicon-32.png"],
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
+    other: [
+      {
+        rel: "manifest",
+        url: "/site.webmanifest",
+      },
+      {
+        rel: "mask-icon",
+        url: "/favicon.svg",
+        color: "#06081a",
+      },
+    ],
   },
+  manifest: "/site.webmanifest",
   openGraph: {
     title: `${PRIMARY_KEYWORD} — Live Moon Phase Emoji`,
     description:
@@ -70,10 +87,11 @@ export const metadata: Metadata = {
     locale: "en_US",
     images: [
       {
-        url: "/favicon.svg",
-        width: 64,
-        height: 64,
-        alt: "Moon phase emoji favicon",
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Current Phase of the Moon Emoji — Live Moon Phase Updated Every Minute",
+        type: "image/png",
       },
     ],
   },
@@ -83,7 +101,7 @@ export const metadata: Metadata = {
     description:
       "See tonight's moon phase as an emoji — live, accurate, no refresh needed.",
     creator: "@moonphaseemoji",
-    images: ["/favicon.svg"],
+    images: ["/og-image.png"],
   },
   robots: {
     index: true,
@@ -120,7 +138,18 @@ const jsonLd = [
     "@id": `${SITE_URL}/#organization`,
     name: "Moon Phase Emoji",
     url: SITE_URL,
-    logo: `${SITE_URL}/favicon.svg`,
+    logo: {
+      "@type": "ImageObject",
+      url: `${SITE_URL}/icon-512.png`,
+      width: 512,
+      height: 512,
+    },
+    image: {
+      "@type": "ImageObject",
+      url: `${SITE_URL}/og-image.png`,
+      width: 1200,
+      height: 630,
+    },
     description:
       "Publisher of the live moon phase emoji tool, lunar phase guides, and 7-day moon forecasts.",
     founder: { "@id": `${SITE_URL}/#person` },
@@ -183,6 +212,8 @@ export default function RootLayout({
         <Toaster />
         {/* Sticky bottom anchor ad (728×90, desktop-only, dismissible) */}
         <AnchorAd />
+        {/* Sticky right sidebar anchor ad (160×600 skyscraper, xl+ desktop only) */}
+        <SidebarAnchorAd />
       </body>
       {/* Google Analytics 4 — loads gtag.js and tracks page views on every
           route change. Placed as a direct child of <html> so the script

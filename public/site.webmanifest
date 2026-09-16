@@ -1,0 +1,37 @@
+{
+  "name": "Moon Phase Emoji — Live Moon Phase Updated Every Minute",
+  "short_name": "Moon Phase Emoji",
+  "description": "See the current phase of the moon emoji live — updated every minute with real-time illumination, moon age, and a 7-day forecast.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#06081a",
+  "theme_color": "#06081a",
+  "orientation": "portrait-primary",
+  "categories": ["science", "education", "utilities"],
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "type": "image/svg+xml",
+      "sizes": "any",
+      "purpose": "any"
+    },
+    {
+      "src": "/favicon-32.png",
+      "type": "image/png",
+      "sizes": "32x32",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any maskable"
+    }
+  ]
+}

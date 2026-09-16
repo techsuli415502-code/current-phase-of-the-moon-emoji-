@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <radialGradient id="bgGrad" cx="50%" cy="35%" r="80%">
+      <stop offset="0%" stop-color="#1a1f3a"/>
+      <stop offset="55%" stop-color="#0d1024"/>
+      <stop offset="100%" stop-color="#06081a"/>
+    </radialGradient>
+    <radialGradient id="moonGrad" cx="35%" cy="35%" r="70%">
+      <stop offset="0%" stop-color="#FFF8DC"/>
+      <stop offset="55%" stop-color="#F5E6C8"/>
+      <stop offset="100%" stop-color="#C9B58D"/>
+    </radialGradient>
+    <radialGradient id="shadowGrad" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#0d1024" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#0d1024" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowGrad" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FFF8DC" stop-opacity="0.45"/>
+      <stop offset="50%" stop-color="#FFD97A" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#FFD97A" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="textGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FFF8DC"/>
+      <stop offset="50%" stop-color="#FFD97A"/>
+      <stop offset="100%" stop-color="#FFF8DC"/>
+    </linearGradient>
+    <clipPath id="moonClip">
+      <circle cx="920" cy="315" r="170"/>
+    </clipPath>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bgGrad)"/>
+
+  <!-- Scattered stars -->
+  <g fill="#FFF8DC" opacity="0.7">
+    <circle cx="80" cy="80" r="2"/>
+    <circle cx="180" cy="50" r="1.5"/>
+    <circle cx="280" cy="90" r="1.5"/>
+    <circle cx="380" cy="40" r="2"/>
+    <circle cx="480" cy="80" r="1"/>
+    <circle cx="580" cy="50" r="2"/>
+    <circle cx="680" cy="100" r="1.5"/>
+    <circle cx="50" cy="180" r="1.5"/>
+    <circle cx="100" cy="280" r="1"/>
+    <circle cx="60" cy="380" r="2"/>
+    <circle cx="120" cy="480" r="1.5"/>
+    <circle cx="200" cy="560" r="2"/>
+    <circle cx="350" cy="580" r="1.5"/>
+    <circle cx="500" cy="560" r="1"/>
+    <circle cx="650" cy="580" r="2"/>
+    <circle cx="780" cy="560" r="1.5"/>
+    <circle cx="1100" cy="60" r="1.5"/>
+    <circle cx="1050" cy="540" r="2"/>
+    <circle cx="1150" cy="500" r="1.5"/>
+  </g>
+
+  <!-- Star sparkles -->
+  <g fill="#FFF8DC">
+    <path d="M 150 200 L 154 208 L 162 212 L 154 216 L 150 224 L 146 216 L 138 212 L 146 208 Z" opacity="0.85"/>
+    <path d="M 700 480 L 703 486 L 709 489 L 703 492 L 700 498 L 697 492 L 691 489 L 697 486 Z" opacity="0.7"/>
+    <path d="M 300 130 L 302 134 L 306 136 L 302 138 L 300 142 L 298 138 L 294 136 L 298 134 Z" opacity="0.65"/>
+  </g>
+
+  <!-- Moon glow halo -->
+  <circle cx="920" cy="315" r="280" fill="url(#glowGrad)"/>
+
+  <!-- Moon disc -->
+  <circle cx="920" cy="315" r="170" fill="url(#moonGrad)"/>
+
+  <!-- Crescent shadow -->
+  <g clip-path="url(#moonClip)">
+    <circle cx="990" cy="270" r="165" fill="url(#shadowGrad)"/>
+  </g>
+
+  <!-- Moon craters -->
+  <g fill="#B5A07A" opacity="0.35">
+    <circle cx="880" cy="280" r="14"/>
+    <circle cx="850" cy="360" r="10"/>
+    <circle cx="900" cy="400" r="7"/>
+    <circle cx="820" cy="320" r="6"/>
+    <circle cx="940" cy="250" r="5"/>
+  </g>
+
+  <!-- Brand: eyebrow -->
+  <text x="80" y="180" font-family="Arial, sans-serif" font-size="22" letter-spacing="6" fill="#FFD97A" opacity="0.85">
+    LIVE · REAL-TIME LUNAR DATA
+  </text>
+
+  <!-- Brand: main headline (gradient + glow) -->
+  <text x="80" y="290" font-family="Arial, sans-serif" font-size="68" font-weight="800" fill="url(#textGrad)">
+    <tspan x="80" dy="0">Current Phase of</tspan>
+    <tspan x="80" dy="78">the Moon Emoji</tspan>
+  </text>
+
+  <!-- Subtitle -->
+  <text x="80" y="470" font-family="Arial, sans-serif" font-size="26" fill="#A0A8C0">
+    Live moon phase, updated every minute · Free &amp; accurate
+  </text>
+
+  <!-- 8 moon phases row at bottom -->
+  <g font-family="Arial, sans-serif" font-size="38" text-anchor="middle" opacity="0.85">
+    <text x="120" y="565">🌑</text>
+    <text x="200" y="565">🌒</text>
+    <text x="280" y="565">🌓</text>
+    <text x="360" y="565">🌔</text>
+    <text x="440" y="565">🌕</text>
+    <text x="520" y="565">🌖</text>
+    <text x="600" y="565">🌗</text>
+    <text x="680" y="565">🌘</text>
+  </g>
+
+  <!-- Domain badge bottom-right -->
+  <text x="1120" y="595" font-family="Arial, sans-serif" font-size="18" text-anchor="end" fill="#7A8095">
+    moonphaseemoji.com
+  </text>
+</svg>
