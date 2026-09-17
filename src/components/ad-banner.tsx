@@ -51,7 +51,7 @@ export function AdBanner({
   className = "",
 }: AdBannerProps) {
   const config = AD_CONFIGS[format];
-  const uid = useId().replace(/[:]/g, "");
+  const uid = useId().replace(/[^a-zA-Z0-9]/g, "");
   const containerId = `ad-${format}-${uid}`;
 
   // Leaderboard is hidden on mobile/tablet (< 768px) to prevent overflow
@@ -131,8 +131,6 @@ atOptions = {
             border: "none",
             background: "#ffffff",
           }}
-          loading="lazy"
-          sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox allow-forms"
           referrerPolicy="no-referrer-when-downgrade"
         />
       </div>

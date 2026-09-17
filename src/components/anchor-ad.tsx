@@ -5,18 +5,24 @@ import { useEffect, useState, useId } from "react";
 /**
  * Responsive sticky bottom anchor ad.
  *
- * - Mobile  (< 768px): 300×250 rectangle (fits 375px viewports, no overflow)
- * - Desktop (≥ 768px): 728×90 leaderboard (full-width banner)
+ * Strategy: render BOTH ad sizes in the DOM, but use CSS media queries
+ * to show only the right one. This is more robust than JS-based viewport
+ * detection because:
+ *   - Works on iOS Safari (where matchMedia listener can be flaky)
+ *   - Works on browsers with JavaScript disabled
+ *   - Handles viewport changes (rotation, resize) via pure CSS
+ *   - Only one iframe is actually visible at a time (the hidden one has
+ *     display:none so it doesn't trigger ad impressions)
+ *
+ * Mobile  (< 768px): 300×250 rectangle (fits 375px / 320px viewports)
+ * Desktop (≥ 768px): 728×90 leaderboard (full-width banner)
  *
  * - Dismissible via ✕ button (persists for current session via sessionStorage)
  * - Loaded inside isolated iframe (srcDoc) — no clash with inline ads
  * - White background so creative is always visible
  * - Spacer div reserves space at the bottom of the page so the anchor
  *   never covers content above the footer
- *
- * Uses matchMedia to pick the right ad size client-side, avoiding loading
- * both ad sizes simultaneously (saves bandwidth + prevents hidden-iframes
- * from triggering invisible ad impressions).
+ * - position: fixed with safe-area-inset for iOS notch / home indicator
  */
 
 const RECTANGLE_AD = {
@@ -32,7 +38,6 @@ const LEADERBOARD_AD = {
 };
 
 const STORAGE_KEY = "moon-phase-emoji:anchor-ad-dismissed";
-const MOBILE_BREAKPOINT = 768; // md breakpoint — matches Tailwind
 
 function buildIframeDoc(config: { key: string; height: number; width: number }) {
   return `<!DOCTYPE html>
@@ -61,30 +66,19 @@ atOptions = {
 }
 
 export function AnchorAd() {
-  const uid = useId().replace(/[:]/g, "");
+  const uid = useId().replace(/[^a-zA-Z0-9]/g, "");
   const [dismissed, setDismissed] = useState(true); // start dismissed to avoid SSR flash
-  const [isMobile, setIsMobile] = useState(false);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect -- deferred to client to avoid hydration mismatch
     setMounted(true);
-
-    const mql = window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT - 1}px)`);
-    const updateIsMobile = () => setIsMobile(mql.matches);
-    updateIsMobile();
-
-    // Listen for viewport changes (e.g. user rotates phone or resizes browser)
-    mql.addEventListener("change", updateIsMobile);
-
     try {
       const stored = sessionStorage.getItem(STORAGE_KEY);
       setDismissed(stored === "1");
     } catch {
       setDismissed(false);
     }
-
-    return () => mql.removeEventListener("change", updateIsMobile);
   }, []);
 
   if (!mounted || dismissed) return null;
@@ -98,66 +92,128 @@ export function AnchorAd() {
     }
   }
 
-  // Pick the ad size based on viewport
-  const config = isMobile ? RECTANGLE_AD : LEADERBOARD_AD;
-  const iframeDoc = buildIframeDoc(config);
-  const containerId = `anchor-ad-${uid}`;
+  const rectangleDoc = buildIframeDoc(RECTANGLE_AD);
+  const leaderboardDoc = buildIframeDoc(LEADERBOARD_AD);
 
   return (
     <>
-      {/* Spacer reserves space at bottom of page so anchor doesn't cover content */}
-      <div aria-hidden="true" style={{ height: config.height + 32 }} />
+      {/* Spacer reserves space at bottom of page (use the larger of the two
+          ad sizes so content is never covered, regardless of which ad shows) */}
+      <div aria-hidden="true" style={{ height: RECTANGLE_AD.height + 32 }} />
 
+      {/* Mobile anchor ad (300×250 rectangle) — visible below md breakpoint */}
       <div
         role="complementary"
         aria-label="Sponsored advertisement"
-        className="fixed bottom-3 left-1/2 z-40 -translate-x-1/2"
-        style={{ width: isMobile ? "calc(100% - 24px)" : "auto", maxWidth: isMobile ? "none" : "none" }}
+        className="anchor-ad-mobile fixed left-1/2 z-40 -translate-x-1/2 md:hidden"
+        style={{
+          bottom: "max(12px, env(safe-area-inset-bottom))",
+          width: "calc(100% - 16px)",
+        }}
       >
-        <div className="relative rounded-lg border border-border/60 bg-card/95 p-2 shadow-2xl backdrop-blur-md">
-          <button
-            type="button"
-            onClick={dismiss}
-            aria-label="Close advertisement"
-            className="absolute -right-2 -top-2 z-10 flex h-6 w-6 items-center justify-center rounded-full border border-border bg-background text-xs font-bold text-muted-foreground shadow-md transition-colors hover:text-foreground"
-          >
-            ✕
-          </button>
+        <AnchorAdShell onDismiss={dismiss} uid={`${uid}-m`}>
+          <AdIframe
+            id={`anchor-ad-${uid}-mobile`}
+            doc={rectangleDoc}
+            width={RECTANGLE_AD.width}
+            height={RECTANGLE_AD.height}
+            center={true}
+          />
+        </AnchorAdShell>
+      </div>
 
-          <span className="absolute left-3 top-1 text-[9px] uppercase tracking-wider text-muted-foreground/60">
-            Advertisement
-          </span>
-
-          <div
-            className="relative mt-3 overflow-hidden rounded-md"
-            style={{
-              width: isMobile ? "100%" : config.width,
-              height: config.height,
-              background: "#ffffff",
-              maxWidth: "100vw",
-            }}
-          >
-            <iframe
-              id={containerId}
-              title="Anchor advertisement"
-              srcDoc={iframeDoc}
-              style={{
-                width: config.width,
-                height: config.height,
-                position: "absolute",
-                left: isMobile ? "50%" : 0,
-                top: 0,
-                transform: isMobile ? "translateX(-50%)" : "none",
-                border: "none",
-                background: "#ffffff",
-              }}
-              loading="lazy"
-              sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox allow-forms"
-              referrerPolicy="no-referrer-when-downgrade"
-            />
-          </div>
-        </div>
+      {/* Desktop anchor ad (728×90 leaderboard) — visible at md breakpoint and up */}
+      <div
+        role="complementary"
+        aria-label="Sponsored advertisement"
+        className="anchor-ad-desktop fixed left-1/2 z-40 hidden -translate-x-1/2 md:block"
+        style={{
+          bottom: "max(12px, env(safe-area-inset-bottom))",
+        }}
+      >
+        <AnchorAdShell onDismiss={dismiss} uid={`${uid}-d`}>
+          <AdIframe
+            id={`anchor-ad-${uid}-desktop`}
+            doc={leaderboardDoc}
+            width={LEADERBOARD_AD.width}
+            height={LEADERBOARD_AD.height}
+            center={false}
+          />
+        </AnchorAdShell>
       </div>
     </>
+  );
+}
+
+function AnchorAdShell({
+  onDismiss,
+  uid,
+  children,
+}: {
+  onDismiss: () => void;
+  uid: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="relative rounded-lg border border-border/60 bg-card/95 p-2 shadow-2xl backdrop-blur-md">
+      <button
+        type="button"
+        onClick={onDismiss}
+        aria-label="Close advertisement"
+        className="absolute -right-2 -top-2 z-10 flex h-6 w-6 items-center justify-center rounded-full border border-border bg-background text-xs font-bold text-muted-foreground shadow-md transition-colors hover:text-foreground"
+      >
+        ✕
+      </button>
+
+      <span className="absolute left-3 top-1 text-[9px] uppercase tracking-wider text-muted-foreground/60">
+        Advertisement
+      </span>
+
+      <div className="mt-3">{children}</div>
+    </div>
+  );
+}
+
+function AdIframe({
+  id,
+  doc,
+  width,
+  height,
+  center,
+}: {
+  id: string;
+  doc: string;
+  width: number;
+  height: number;
+  center: boolean;
+}) {
+  return (
+    <div
+      className="relative overflow-hidden rounded-md"
+      style={{
+        width: "100%",
+        maxWidth: width,
+        height: height,
+        background: "#ffffff",
+        margin: "0 auto",
+      }}
+    >
+      <iframe
+        id={id}
+        title="Anchor advertisement"
+        srcDoc={doc}
+        style={{
+          width: width,
+          height: height,
+          position: "absolute",
+          left: center ? "50%" : 0,
+          top: 0,
+          transform: center ? "translateX(-50%)" : "none",
+          border: "none",
+          background: "#ffffff",
+        }}
+        referrerPolicy="no-referrer-when-downgrade"
+      />
+    </div>
   );
 }
